@@ -1,0 +1,44 @@
+name: Build  Theme
+
+on:
+  push:
+    branches:
+      - main
+    # Run the workflow only if the commit message contains the word 'RELEASE'
+    # Note: This will match 'RELEASE' in any case, e.g., 'release', 'Release'
+    paths:
+      - '**'
+    # This setup listens for any push event, but we'll filter based on commit message
+    #if: contains(github.event.head_commit.message, 'RELEASE')
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@vv
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Use the version required by your Sage theme
+        cache: 'yarn'
+
+    - name: Setup the PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        coverage: xdebug
+
+    - name: Install dependencies
+      run: |
+        composer install
+        yarn install --production=false
+        yarn build
+
+    #- name: Upload build artifacts
+    #  uses: actions/upload-artifact@v3
+    #  with:
+    #    name: sage-theme-build
+    #    path: path/to/your/sage-theme/build
