@@ -37,7 +37,9 @@ jobs:
         yarn install --production=false
         yarn build
 
-    #- name: Upload build artifacts
+    - name: Upload build artifacts
+      run: |
+        pwd
     #  uses: actions/upload-artifact@v3
     #  with:
     #    name: sage-theme-build
