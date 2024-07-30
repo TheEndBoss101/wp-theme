@@ -38,9 +38,7 @@ jobs:
         yarn build
 
     - name: Upload build artifacts
-      run: |
-        pwd
-    #  uses: actions/upload-artifact@v3
-    #  with:
-    #    name: sage-theme-build
-    #    path: path/to/your/sage-theme/build
+      uses: actions/upload-artifact@v4
+      with:
+        name: theme
+        path: pwd
