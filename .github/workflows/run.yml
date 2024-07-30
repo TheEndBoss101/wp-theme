@@ -19,13 +19,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '20' # Use the version required by your Sage theme
         cache: 'yarn'
 
-    - name: Setup the PHP
+    - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
         php-version: '8.3'
@@ -35,10 +35,16 @@ jobs:
       run: |
         composer install
         yarn install --production=false
+
+    - name: Build Assets
+      run: |
         yarn build
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: theme
-        path: pwd
+      run: |
+        pwd
+        ls -la
+      #uses: actions/upload-artifact@v4
+      #with:
+      #  name: theme
+      #  path: pwd
